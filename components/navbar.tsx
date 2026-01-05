@@ -4,8 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
-import Profile from "@/components/pages/Profile";
-import { useAccount } from "wagmi";
+import { useAppKitAccount, useAppKit } from "@reown/appkit/react";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -18,12 +17,13 @@ const navLinks = [
 
 export function Navbar() {
   const pathname = usePathname();
-  const { isConnected } = useAccount();
+  const { isConnected } = useAppKitAccount();
+  const { open } = useAppKit();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 lg:py-4 md:py-4">
       <div className="container flex h-16 max-w-screen-2xl items-center justify-between px-4">
-          <Link href='/' className="flex items-center">
+        <Link href="/" className="flex items-center">
           <Image
             src="https://res.cloudinary.com/dy7el0ucd/image/upload/v1765306071/tb-mark_upizhl.png"
             alt=""
@@ -31,7 +31,7 @@ export function Navbar() {
             height={50}
           />
           <p className="hidden lg:block md:block font-bold ">TheBench</p>
-          </Link>
+        </Link>
 
         <div className="flex items-center gap-2">
           {/* Mobile menu button */}
@@ -52,7 +52,6 @@ export function Navbar() {
                 />
                 <p>TheBench</p>
               </div>
-              <Profile />
               <nav className="flex flex-col gap-4">
                 {navLinks.map((link) => (
                   <Link
@@ -67,18 +66,18 @@ export function Navbar() {
                     {link.name}
                   </Link>
                 ))}
-                {!isConnected &&  <div className="mt-6 pt-6 border-t">
-                  <Button className="w-full">Connect Wallet</Button>
-                </div>}
-
+                {!isConnected && (
+                  <div className="mt-6 pt-6 border-t">
+                    <Button className="w-full" onClick={() => open()}>
+                      Connect Wallet
+                    </Button>
+                  </div>
+                )}
               </nav>
             </SheetContent>
           </Sheet>
-
-         
         </div>
 
-        {/* Desktop navigation */}
         <nav className="hidden md:flex lg:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
@@ -94,11 +93,15 @@ export function Navbar() {
             </Link>
           ))}
 
-          {!isConnected ? <div className="flex items-center gap-3">
-            <Button variant="outline" size="sm">
-              Connect Wallet
-            </Button>
-          </div> : <Profile />}
+          {!isConnected ? (
+            <div className="flex items-center gap-3">
+              <Button variant="outline" size="sm" onClick={() => open()}>
+                Connect Wallet
+              </Button>
+            </div>
+          ) : (
+            <w3m-button />
+          )}
         </nav>
       </div>
     </header>

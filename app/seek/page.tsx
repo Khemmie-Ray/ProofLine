@@ -12,14 +12,7 @@ const Seek: React.FC = () => {
   const MAX_CHARS = 280;
 
   const { isConnected } = useAccount();
-  const {
-    createQuestion,
-    hash,
-    isPending,
-    isConfirming,
-    isSuccess,
-    error,
-  } = useCreateQuestion();
+  const { createQuestion, isPending, isConfirming, isLoading } = useCreateQuestion();
 
   const countChars = (str: string): number => str.length;
 
@@ -32,76 +25,16 @@ const Seek: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (): Promise<void> => {
-    if (!isConnected) {
-      toast.error("Please connect your wallet first");
-      return;
-    }
-
-    try {
-      const tx = await createQuestion(text, optionA, optionB);
-      console.log(tx)
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Failed to create question";
-      toast.error(errorMessage);
-    }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    createQuestion(text, optionA, optionB);
   };
 
-  useEffect(() => {
-    if (isPending) {
-      toast.loading("Waiting for wallet confirmation...", {
-        id: "transaction-status",
-      });
-    }
-  }, [isPending]);
-
-
-  useEffect(() => {
-    if (isConfirming && hash) {
-      toast.loading("Transaction submitted! Waiting for confirmation...", {
-        id: "transaction-status",
-        description: "This may take a few moments",
-      });
-    }
-  }, [isConfirming, hash]);
-
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success("Question created successfully!", {
-        id: "transaction-status",
-        description: hash ? "Transaction confirmed on blockchain" : undefined,
-        action: hash
-          ? {
-              label: "View on Etherscan",
-              onClick: () =>
-                window.open(`https://etherscan.io/tx/${hash}`, "_blank"),
-            }
-          : undefined,
-      });
-
-      setText("");
-      setOptionA("");
-      setOptionB("");
-    }
-  }, [isSuccess, hash]);
-
-  useEffect(() => {
-    if (error) {
-      toast.dismiss("transaction-status");
-
-      const errorMessage = error.message || "Transaction failed";
-
-      if (errorMessage.includes("User rejected") || errorMessage.includes("User denied")) {
-        toast.error("Transaction rejected by user");
-      } else if (errorMessage.includes("insufficient funds")) {
-        toast.error("Insufficient funds for transaction");
-      } else {
-        toast.error("Transaction failed", {
-          description: errorMessage.slice(0, 100),
-        });
-      }
-    }
-  }, [error]);
+  const getButtonText = () => {
+    if (isPending) return "Confirm in wallet...";
+    if (isConfirming) return "Creating Profile...";
+    return "Create Profile";
+  };
 
   const charCount = countChars(text);
   const isOverLimit = charCount > MAX_CHARS;
@@ -137,9 +70,7 @@ const Seek: React.FC = () => {
         </div>
 
         <div className="mb-3">
-          <label className="block text-[16px] font-medium mb-1">
-            Option A
-          </label>
+          <label className="block text-[16px] font-medium mb-1">Option A</label>
           <input
             type="text"
             className="w-full border border-gray-300 rounded-lg p-3 text-[13px] focus:outline-none focus:ring-2 focus:ring-[#1A1A1A]"
@@ -151,9 +82,7 @@ const Seek: React.FC = () => {
         </div>
 
         <div>
-          <label className="block text-[16px] font-medium mb-1">
-            Option B
-          </label>
+          <label className="block text-[16px] font-medium mb-1">Option B</label>
           <input
             type="text"
             className="w-full border border-gray-300 rounded-lg p-3 text-[13px] focus:outline-none focus:ring-2 focus:ring-[#1A1A1A]"
@@ -169,18 +98,14 @@ const Seek: React.FC = () => {
         <button
           type="button"
           onClick={handleSubmit}
-          disabled={isSubmitting || !isConnected || isOverLimit}
+          disabled={isLoading}
           className={`w-full p-3 rounded-lg shadow-lg font-medium transition-all ${
             isSubmitting || !isConnected || isOverLimit
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-[#1A1A1A] text-white hover:bg-[#2A2A2A]"
           }`}
         >
-          {!isConnected
-            ? "Connect Wallet to Submit"
-            : isSubmitting
-            ? "Processing..."
-            : "Submit Question"}
+       {getButtonText()}
         </button>
 
         {!isConnected && (
