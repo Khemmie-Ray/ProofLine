@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { useAccount } from "wagmi";
-import { toast } from "sonner";
 import useCreateQuestion from "@/hooks/useCreateQuestion";
 
 const Seek: React.FC = () => {
@@ -12,7 +11,7 @@ const Seek: React.FC = () => {
   const MAX_CHARS = 280;
 
   const { isConnected } = useAccount();
-  const { createQuestion, isPending, isConfirming, isLoading } = useCreateQuestion();
+  const { createQuestion, isPending, isConfirming, isLoading, isSuccess } = useCreateQuestion();
 
   const countChars = (str: string): number => str.length;
 
@@ -29,6 +28,15 @@ const Seek: React.FC = () => {
     e.preventDefault();
     createQuestion(text, optionA, optionB);
   };
+
+  useEffect(() => {
+      if(isSuccess) {
+    setText("");
+    setOptionA("");
+    setOptionB("");
+  }
+  }, [isSuccess])
+
 
   const getButtonText = () => {
     if (isPending) return "Confirm in wallet...";
