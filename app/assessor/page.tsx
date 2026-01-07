@@ -98,11 +98,11 @@ const Assessor = () => {
             </button>
           </div>
 
-          <div className="flex justify-between mt-6">
+          <div className="flex justify-between mt-6 items-center">
             <button
               onClick={prev}
               disabled={index === 0}
-              className="flex items-center gap-2 px-4 py-2 rounded-full border disabled:opacity-40"
+              className="flex items-center gap-2 px-4 py-2 rounded-full border disabled:opacity-60"
             >
               <ChevronLeft size={18} />
               Prev
@@ -111,7 +111,7 @@ const Assessor = () => {
             <button
               onClick={next}
               disabled={index === questions.length - 1}
-              className="flex items-center gap-2 px-4 py-2 rounded-full border disabled:opacity-40"
+              className="flex items-center gap-2 px-4 py-2 rounded-full border disabled:opacity-60"
             >
               Next
               <ChevronRight size={18} />
