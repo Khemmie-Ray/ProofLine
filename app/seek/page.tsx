@@ -8,21 +8,13 @@ const Seek: React.FC = () => {
   const [text, setText] = useState<string>("");
   const [optionA, setOptionA] = useState<string>("");
   const [optionB, setOptionB] = useState<string>("");
-  const MAX_CHARS = 280;
+  const MAX_CHARS = 150;
 
   const { isConnected } = useAccount();
-  const { createQuestion, isPending, isConfirming, isLoading, isSuccess } = useCreateQuestion();
+  const { createQuestion, isPending, isConfirming, isLoading, isSuccess } =
+    useCreateQuestion();
 
   const countChars = (str: string): number => str.length;
-
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-    const value = e.target.value;
-    const charCount = countChars(value);
-
-    if (charCount <= MAX_CHARS) {
-      setText(value);
-    }
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,13 +22,12 @@ const Seek: React.FC = () => {
   };
 
   useEffect(() => {
-      if(isSuccess) {
-    setText("");
-    setOptionA("");
-    setOptionB("");
-  }
-  }, [isSuccess])
-
+    if (isSuccess) {
+      setText("");
+      setOptionA("");
+      setOptionB("");
+    }
+  }, [isSuccess]);
 
   const getButtonText = () => {
     if (isPending) return "Confirm in wallet...";
@@ -65,7 +56,8 @@ const Seek: React.FC = () => {
             }`}
             placeholder="What's on your mind?"
             value={text}
-            onChange={handleChange}
+            maxLength={MAX_CHARS}
+            onChange={(e) => setText(e.target.value)}
             disabled={isSubmitting}
           />
           <p
@@ -73,7 +65,7 @@ const Seek: React.FC = () => {
               isOverLimit ? "text-red-500" : "text-gray-500"
             }`}
           >
-            {charCount}/{MAX_CHARS} characters
+            {text.length}/{MAX_CHARS} characters
           </p>
         </div>
 
@@ -113,7 +105,7 @@ const Seek: React.FC = () => {
               : "bg-[#1A1A1A] text-white hover:bg-[#2A2A2A]"
           }`}
         >
-       {getButtonText()}
+          {getButtonText()}
         </button>
 
         {!isConnected && (

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Send, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import CommentBox from "@/components/CommentBox";
 
 const Assessor = () => {
   const [index, setIndex] = useState(0);
@@ -87,16 +88,7 @@ const Assessor = () => {
               <span>{option}</span>
             </label>
           ))}
-
-          <div className="border border-black/20 rounded-[21px] flex flex-col p-4 mt-4">
-            <textarea
-              placeholder="Enter a comment"
-              className="h-[90px] w-full outline-none resize-none"
-            />
-            <button className="bg-black rounded-full p-3 ml-auto mt-2">
-              <Send className="text-white" />
-            </button>
-          </div>
+          <CommentBox />
 
           <div className="flex justify-between mt-6 items-center">
             <button

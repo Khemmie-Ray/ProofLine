@@ -13,6 +13,7 @@ const navLinks = [
   { name: "Home", href: "/" },
   { name: "Seek", href: "/seek" },
   { name: "Assessor", href: "/assessor" },
+  { name: "Profile", href: "/profile" },
 ];
 
 export function Navbar() {
@@ -52,7 +53,7 @@ export function Navbar() {
                 />
                 <p>TheBench</p>
               </div>
-              <nav className="flex flex-col gap-4">
+              <nav className="flex flex-col gap-4 px-4">
                 {navLinks.map((link) => (
                   <Link
                     key={link.href}
