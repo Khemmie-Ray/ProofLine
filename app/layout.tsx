@@ -9,8 +9,9 @@ import { headers } from "next/headers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AppKit Example App",
-  description: "Powered by Reown",
+  title: "Proofline",
+  description: "A test usecase",
+  icons: "./vercel.svg"
 };
 
 export default async function RootLayout({
