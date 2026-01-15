@@ -31,8 +31,8 @@ const Seek: React.FC = () => {
 
   const getButtonText = () => {
     if (isPending) return "Confirm in wallet...";
-    if (isConfirming) return "Creating Profile...";
-    return "Create Profile";
+    if (isConfirming) return "Creating Question...";
+    return "Create Question";
   };
 
   const charCount = countChars(text);
@@ -51,7 +51,7 @@ const Seek: React.FC = () => {
             Describe your dilemma
           </label>
           <textarea
-            className={`w-full border rounded-lg p-3 text-[13px] h-40 focus:outline-none focus:ring-2 focus:ring-[#1A1A1A] ${
+            className={`w-full border rounded-lg p-3 text-[13px] h-30 focus:outline-none focus:ring-2 focus:ring-[#1A1A1A] ${
               isOverLimit ? "border-red-500" : "border-gray-300"
             }`}
             placeholder="What's on your mind?"
