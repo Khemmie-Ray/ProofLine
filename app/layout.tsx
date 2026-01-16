@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Proofline",
   description: "A test usecase",
-  icons: "./vercel.svg"
+  icons: "./mark.png"
 };
 
 export default async function RootLayout({

@@ -1,34 +1,5 @@
 [
 	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_ask",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_optionA",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_optionB",
-				"type": "string"
-			}
-		],
-		"name": "createQuestion",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "qId",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
@@ -96,29 +67,6 @@
 		"type": "event"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_qId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bool",
-				"name": "_chooseA",
-				"type": "bool"
-			},
-			{
-				"internalType": "string",
-				"name": "_comment",
-				"type": "string"
-			}
-		],
-		"name": "vote",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -151,6 +99,48 @@
 	},
 	{
 		"inputs": [],
+		"name": "MAX_VERDICTS",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_ask",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_optionA",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_optionB",
+				"type": "string"
+			}
+		],
+		"name": "createQuestion",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "qId",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "deployer",
 		"outputs": [
 			{
@@ -168,6 +158,11 @@
 		"outputs": [
 			{
 				"components": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
 					{
 						"internalType": "address",
 						"name": "seeker",
@@ -336,6 +331,11 @@
 			{
 				"components": [
 					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
 						"internalType": "address",
 						"name": "seeker",
 						"type": "address"
@@ -416,15 +416,20 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256[]",
-				"name": "_qIds",
-				"type": "uint256[]"
+				"internalType": "address",
+				"name": "_seeker",
+				"type": "address"
 			}
 		],
-		"name": "getQuestionsByIds",
+		"name": "getQuestionsBySeeker",
 		"outputs": [
 			{
 				"components": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
 					{
 						"internalType": "address",
 						"name": "seeker",
@@ -567,19 +572,6 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "MAX_VERDICTS",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -613,6 +605,11 @@
 		],
 		"name": "questions",
 		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
 			{
 				"internalType": "address",
 				"name": "seeker",
@@ -691,6 +688,42 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "totalQuestions",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_qId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "_chooseA",
+				"type": "bool"
+			},
+			{
+				"internalType": "string",
+				"name": "_comment",
+				"type": "string"
+			}
+		],
+		"name": "vote",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{

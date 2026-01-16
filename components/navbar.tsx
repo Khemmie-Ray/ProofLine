@@ -22,7 +22,7 @@ export function Navbar() {
   const { open } = useAppKit();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 lg:py-4 md:py-4">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md supports-backdrop-filter:bg-background/60 lg:py-4 md:py-4">
       <div className="container flex h-16 max-w-screen-2xl items-center justify-between px-4">
         <Link href="/" className="flex items-center">
           <Image
@@ -35,7 +35,6 @@ export function Navbar() {
         </Link>
 
         <div className="flex items-center gap-2">
-          {/* Mobile menu button */}
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">

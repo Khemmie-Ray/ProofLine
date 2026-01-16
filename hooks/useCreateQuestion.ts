@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useEffect, useCallback } from "react";
 import {
   useWriteContract,
@@ -9,19 +7,7 @@ import {
 import { DAO_ADDRESSES, isSupportedChain } from "@/constant/contract";
 import { toast } from "sonner";
 import { BaseError } from "wagmi";
-
-const abi = [
-  {
-    type: "function",
-    name: "createQuestion",
-    inputs: [
-      { name: "_ask", type: "string" },
-      { name: "_optionA", type: "string" },
-      { name: "_optionB", type: "string" },
-    ],
-    outputs: [{ name: "qId", type: "uint256" }],
-  },
-] as const;
+import abi from '@/constant/abi.json'
 
 const useCreateQuestion = () => {
   const chainId = useChainId();
