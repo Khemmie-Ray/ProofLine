@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const navLinks = [
-  { name: "Home", href: "/" },
   { name: "Seek", href: "/seek" },
   { name: "Assessor", href: "/assessor" },
   { name: "Profile", href: "/profile" },
@@ -38,20 +37,23 @@ export function Navbar() {
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Toggle menu</span>
+                <Menu className="h-10 w-10" />
+                {/* <span className="sr-only">Toggle menu</span> */}
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-80">
-              <div className="flex items-center gap-2 mb-8">
-                <Image
-                  src="https://res.cloudinary.com/dy7el0ucd/image/upload/v1765306071/tb-mark_upizhl.png"
-                  alt=""
-                  width={50}
-                  height={50}
-                />
-                <p>TheBench</p>
-              </div>
+              <Link href="/">
+                <div className="flex items-center gap-2 mb-8">
+                  <Image
+                    src="https://res.cloudinary.com/dy7el0ucd/image/upload/v1765306071/tb-mark_upizhl.png"
+                    alt=""
+                    width={50}
+                    height={50}
+                  />
+                  <p>TheBench</p>
+                </div>
+              </Link>
+
               <nav className="flex flex-col gap-4 px-4">
                 {navLinks.map((link) => (
                   <Link
