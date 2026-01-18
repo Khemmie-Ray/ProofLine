@@ -26,9 +26,6 @@ const Assessor = () => {
     isLoading: loadingQuestion,
   } = useQuestionDetails(questionId ?? undefined);
 
-  console.log(questionId);
-  console.log(question);
-
   const handleSwipe = (offsetY: number) => {
     if (offsetY < -120 && index < question.length - 1) {
       setIndex((prev) => prev + 1);
@@ -134,6 +131,7 @@ const Assessor = () => {
         </motion.section>
       </AnimatePresence>
     </main>
+
   );
 };
 
